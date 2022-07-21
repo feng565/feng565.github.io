@@ -1,0 +1,1760 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="keywords" content="风五六 静态个人博客">
+<meta name="description" content="温故而知新">
+<meta name="theme-color" content="#000">
+<title>ZPan - 快速搭建私人的不限速网盘！基于腾讯云的免费简单开源多用户 Go 网盘程序 | 风五六</title>
+<link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/feng565/feng565.github.io@main/favicon.ico?v=1658369161463">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/feng565/feng565.github.io@main/media/css/pisces.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/feng565/feng565.github.io@main/media/fonts/font-awesome.css">
+<link
+  href="//fonts.loli.net/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Rosario:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext"
+  rel="stylesheet" type="text/css">
+
+<link href="https://cdn.jsdelivr.net/gh/feng565/feng565.github.io@main/media/hljs/styles/agate.css"
+  rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/feng565/feng565.github.io@main/styles/main.css">
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script src="https://cdn.jsdelivr.net/gh/feng565/feng565.github.io@main/media/js/jquery.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/feng565/feng565.github.io@main/media/hljs/highlight.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.0/velocity.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.0/velocity.ui.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css"
+  integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"
+  integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"
+  integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
+  onload="renderMathInElement(document.body);"></script>
+
+
+
+
+
+
+  <meta name="description" content="ZPan - 快速搭建私人的不限速网盘！基于腾讯云的免费简单开源多用户 Go 网盘程序" />
+  <meta name="keywords" content="教程分享,软件分享" />
+<!--网站加载进度条开始-->
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+    	background: #006eff; /*进度条颜色*/
+    	height: 3px; /*进度条高度*/
+    }
+    .pace .pace-progress-inner {
+     	box-shadow: 0 0 10px #3f3f3f, 0 0 5px #3f3f3f; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+    	border-top-color: #00ffdd;	/*上边框颜色*/
+    	border-left-color: #00ffdd;	/*左边框颜色*/
+    }
+</style>
+<!--网站加载进度条结束-->
+
+<style type="text/css">
+::-webkit-scrollbar-thumb { /*滚动条滑块*/
+    background-color: #1E90FF; /*滑块颜色*/
+    background-image: -webkit-linear-gradient(45deg,rgba(255,255,255,.4) 25%,transparent 25%,transparent 50%,rgba(255,255,255,.4) 50%,rgba(255,255,255,.4) 75%,transparent 75%,transparent); /*滑块样式*/
+    border-radius: 5px; /*设置圆角*/
+}
+::-webkit-scrollbar-track { /*滚动条滑槽*/
+    background-color: #FFFACD; /*滑槽颜色*/
+    border-radius: 5px; /*设置圆角*/
+}
+::-webkit-scrollbar { /*滚动条大小*/
+    width: 8px; /*竖向滚动条的宽度*/
+    height: 8px; /*横向滚动条的高度*/
+}
+</style>
+
+</head>
+
+
+<body>
+  <div class="head-top-line"></div>
+  <div class="header-box">
+    
+<div class="pisces">
+  <header class="header  ">
+    <div class="blog-header box-shadow-wrapper bg-color " id="header">
+      <div class="nav-toggle" id="nav_toggle">
+        <div class="toggle-box">
+          <div class="line line-top"></div>
+          <div class="line line-center"></div>
+          <div class="line line-bottom"></div>
+        </div>
+      </div>
+      <div class="site-meta">       
+        <div class="site-title">
+          
+            <a href="/" class="brand">
+              <span>风五六</span>
+            </a>  
+          
+        </div>
+        
+          <p class="subtitle"> 𝑩𝒆 𝑴𝒚𝒔𝒆𝒍𝒇</p>
+        
+      </div>
+      <nav class="site-nav" id="site_nav">
+        <ul id="nav_ul">
+          
+            
+            
+            <li class="nav-item ">
+              
+              
+                <a href="/" target="_self">
+                  <i class="fa fa-globe"></i> 首页
+                </a>
+              
+            </li>
+          
+            
+            
+            <li class="nav-item ">
+              
+              
+                <a href="/archives" target="_self">
+                  <i class="fa fa-globe"></i> 归档
+                </a>
+              
+            </li>
+          
+            
+            
+            <li class="nav-item ">
+              
+              
+                <a href="/tags" target="_self">
+                  <i class="fa fa-globe"></i> 标签
+                </a>
+              
+            </li>
+          
+            
+            
+            <li class="nav-item ">
+              
+              
+                <a href="/post/about" target="_self">
+                  <i class="fa fa-globe"></i> 关于
+                </a>
+              
+            </li>
+          
+          
+          
+        </ul>
+      </nav>
+    </div>
+  </header>
+</div>
+
+<script type="text/javascript"> 
+ 
+  let showNav = true;
+
+  let navToggle = document.querySelector('#nav_toggle'),
+  siteNav = document.querySelector('#site_nav');
+  
+  function navClick() {
+    let sideBar = document.querySelector('.sidebar');
+    let navUl = document.querySelector('#nav_ul');
+    navToggle.classList.toggle('nav-toggle-active');
+    siteNav.classList.toggle('nav-menu-active');
+    if (siteNav.classList.contains('nav-menu-active')) {
+      siteNav.style = "height: " + (navUl.children.length * 42) +"px !important";
+    } else {
+      siteNav.style = "";
+    }
+  }
+
+  navToggle.addEventListener('click',navClick);  
+</script>
+  </div>
+  <div class="main-continer">
+    
+    <div
+      class="section-layout pisces ">
+      <div class="section-layout-wrapper">
+        
+
+<div class="sidebar">
+  
+    <div class="sidebar-box box-shadow-wrapper bg-color right-motion" id="sidebar">
+      
+        <div class="post-list-sidebar">
+          <div class="sidebar-title">
+            <span id="tocSideBar" class="sidebar-title-item sidebar-title-active language" data-lan="index">文章目录</span>
+            <span id="metaSideBar" class="sidebar-title-item language" data-lan="preview">站点概览</span>
+          </div>
+        </div>
+      
+      <div class="sidebar-body pisces" id="sidebar_body">
+        
+          
+            <div class="post-side-meta" id="post_side_meta">
+              
+<div class="sidebar-wrapper box-shadow-wrapper bg-color">
+  <div class="sidebar-item">
+    <img class="site-author-image right-motion" src="https://cdn.jsdelivr.net/gh/feng565/feng565.github.io@main/images/avatar.png"/>
+    <p class="site-author-name">风五六</p>
+    
+    <div class="site-description right-motion">
+      
+        <p id="binft">本站站长、博客作者</p>
+      
+    </div>
+    
+  </div>
+  <div class="sidebar-item side-item-stat right-motion">
+    <div class="sidebar-item-box">
+      <a href="/archives/">
+        
+        <span class="site-item-stat-count">2</span>
+        <span class="site-item-stat-name language" data-lan="article">文章</span>
+      </a>
+    </div>
+    <div class="sidebar-item-box">
+      <a href="/tags/">
+        <span class="site-item-stat-count">3</span>
+        <span class="site-item-stat-name language" data-lan="tag">标签</span>
+      </a>
+    </div>
+  </div>
+  
+    
+      <div class="sidebar-item">
+        <span class="site-item-rss">
+            <i class="fa fa-rss"></i>
+            <a href="https://feng565.github.io/atom.xml" target="_blank">RSS</a>
+        </span>
+      </div>
+    
+  
+  
+    <div class="sidebar-item sidebar-item-social">
+      <div class="social-item">
+        
+          
+            <a href="http://wpa.qq.com/msgrd?v=3&amp;uin=3594027307&amp;site=qq&amp;menu=yes">
+              <i class="fa fa-qq" title="QQ"></i>
+            </a>
+          
+            <a href="https://github.com/feng565">
+              <i class="fa fa-github-alt" title="github"></i>
+            </a>
+          
+        
+        
+      </div>
+    </div>
+  
+
+  
+
+
+
+  <div style="width: 100%; position: relative;">
+    <canvas id="canvasDiyBlock" style="width:100%;">当前浏览器不支持canvas，请更换浏览器后再试</canvas>
+    <script src="https://cdn.jsdelivr.net/gh/feng565/feng565.github.io@main/media/js/magic/clock.js"></script>
+  </div>
+
+</div>
+            </div>
+            <div class="post-toc sidebar-body-active" id="post_toc" style="opacity: 1;">
+              <div class="toc-box right-motion">
+  <div class="toc-wrapper  auto"
+    id="toc_wrapper">
+    <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E4%B8%80-zpan%E5%AE%89%E8%A3%85%E6%89%80%E9%9C%80">一. ZPan安装所需</a><br>
+*
+<ul>
+<li><a href="#1linux%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5%E5%B7%A5%E5%85%B7">1.Linux远程连接工具</a></li>
+<li><a href="#2linux%E6%9C%8D%E5%8A%A1%E5%99%A8">2.linux服务器</a></li>
+</ul>
+</li>
+<li><a href="#%E4%BA%8Czpan%E5%AE%89%E8%A3%85%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87">二.ZPan安装环境准备</a><br>
+*
+<ul>
+<li><a href="#1%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%87%86%E5%A4%87%E4%BB%A5%E8%85%BE%E8%AE%AF%E4%BA%91%E4%B8%BA%E4%BE%8B">1.服务器准备(以腾讯云为例)</a><br>
+*
+<ul>
+<li><a href="#1%E7%99%BB%E5%BD%95%E8%85%BE%E8%AE%AF%E4%BA%91%E6%8C%89%E7%BB%8F%E6%B5%8E%E5%AE%9E%E5%8A%9B%E8%B4%AD%E4%B9%B0%E6%9C%8D%E5%8A%A1%E5%99%A8">①登录腾讯云，按经济实力购买服务器。</a></li>
+<li><a href="#2%E9%85%8D%E7%BD%AE%E5%AE%89%E5%85%A8%E7%BB%84%E5%B9%B6%E5%85%B3%E8%81%94%E5%AE%9E%E4%BE%8B">②配置安全组，并关联实例。</a></li>
+</ul>
+</li>
+<li><a href="#2%E9%85%8D%E7%BD%AE%E8%85%BE%E8%AE%AF%E4%BA%91cos">2.配置腾讯云COS</a><br>
+*
+<ul>
+<li><a href="#1%E5%88%9B%E5%BB%BAobs%E5%AD%98%E5%82%A8%E6%A1%B6">①创建obs存储桶</a></li>
+<li><a href="#2%E5%88%9B%E5%BB%BA%E5%AF%86%E9%92%A5">②创建密钥</a></li>
+<li><a href="#3%E9%85%8D%E7%BD%AE%E8%AE%B0%E5%BD%95">③配置记录</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E4%B8%89%E5%AE%89%E8%A3%85zpan">三.安装ZPan</a><br>
+*
+<ul>
+<li><a href="#1%E4%BD%BF%E7%94%A8xshell%E8%BF%9E%E6%8E%A5%E6%9C%8D%E5%8A%A1%E5%99%A8">1.使用XShell连接服务器。</a><br>
+*
+<ul>
+<li><a href="#1%E4%BD%BF%E7%94%A8xshell%E8%BF%9E%E6%8E%A5%E6%9C%8D%E5%8A%A1%E5%99%A8-2">①使用XShell连接服务器</a></li>
+<li><a href="#2%E6%8E%A5%E5%8F%97%E5%AF%86%E9%92%A5%E6%A0%A1%E9%AA%8C">②接受<strong>密钥校验</strong></a></li>
+<li><a href="#3%E5%A1%AB%E5%86%99%E7%94%A8%E6%88%B7%E5%90%8D">③填写用户名</a></li>
+<li><a href="#4%E5%A1%AB%E5%86%99%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%AF%86%E7%A0%81">④填写服务器密码</a></li>
+</ul>
+</li>
+<li><a href="#2linux%E5%91%BD%E4%BB%A4%E5%AE%89%E8%A3%85%E8%87%AA%E5%8A%A8%E5%8C%96%E8%84%9A%E6%9C%AC">2.Linux命令安装自动化脚本</a><br>
+*
+<ul>
+<li><a href="#1%E4%BF%AE%E6%94%B9etchosts%E6%96%87%E4%BB%B6%E5%9C%A8%E6%96%87%E4%BB%B6%E4%B8%8B%E6%B7%BB%E5%8A%A0%E4%B8%8B%E9%9D%A2%E5%86%85%E5%AE%B9">①修改/etc/hosts文件，在文件下添加下面内容；</a></li>
+<li><a href="#2%E5%85%B3%E9%97%AD%E9%98%B2%E7%81%AB%E5%A2%99">②关闭防火墙；</a></li>
+<li><a href="#3%E5%AE%89%E8%A3%85zpan%E6%9C%8D%E5%8A%A1">③安装zpan服务；</a></li>
+<li><a href="#4%E5%90%AF%E5%8A%A8zpan%E6%9C%8D%E5%8A%A1%E6%9F%A5%E7%9C%8B%E6%9C%8D%E5%8A%A1%E7%8A%B6%E6%80%81">④启动zpan服务,查看服务状态；</a></li>
+<li><a href="#5%E8%AE%BE%E7%BD%AEzpan%E6%9C%8D%E5%8A%A1%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8">⑤设置zpan服务开机启动;</a></li>
+<li><a href="#6%E6%9F%A5%E7%9C%8Bzpan%E5%B7%A5%E4%BD%9C%E7%AB%AF%E5%8F%A3">⑥查看zpan工作端口;</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E5%9B%9B%E9%85%8D%E7%BD%AEzpan">四.配置ZPan</a><br>
+*
+<ul>
+<li><a href="#1%E9%85%8D%E7%BD%AEzpan">1.配置ZPan</a><br>
+*
+<ul>
+<li><a href="#1%E6%B5%8F%E8%A7%88%E5%99%A8%E7%99%BB%E5%BD%95">①浏览器登录</a></li>
+<li><a href="#2%E9%85%8D%E7%BD%AE%E6%95%B0%E6%8D%AE%E5%BA%93">②配置数据库</a></li>
+<li><a href="#3-%E9%85%8D%E7%BD%AE%E7%AE%A1%E7%90%86%E5%91%98%E8%B4%A6%E5%8F%B7%E8%B4%A6%E5%8F%B7%E5%BF%85%E9%A1%BB%E6%98%AF%E9%82%AE%E7%AE%B1%E8%B4%A6%E5%8F%B7">③ 配置管理员账号，账号必须是<strong>邮箱账号</strong></a></li>
+<li><a href="#4%E5%AE%89%E8%A3%85%E6%88%90%E5%8A%9F">④安装成功</a></li>
+</ul>
+</li>
+<li><a href="#2%E7%99%BB%E5%BD%95zpan">2.登录Zpan</a><br>
+*
+<ul>
+<li><a href="#1%E7%99%BB%E5%BD%95zpan">①登录Zpan</a></li>
+<li><a href="#2%E5%88%9B%E5%BB%BA%E5%AD%98%E5%82%A8">②创建存储</a></li>
+<li><a href="#3%E9%85%8D%E7%BD%AE%E5%AD%98%E5%82%A8">③配置存储</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E4%BA%94%E4%BD%BF%E7%94%A8zpan">五.使用ZPan</a><br>
+*
+<ul>
+<li><a href="#1%E5%88%9B%E5%BB%BA%E6%96%B0%E7%94%A8%E6%88%B7">1.创建新用户</a></li>
+<li><a href="#2%E6%B3%A8%E9%94%80%E7%AE%A1%E7%90%86%E5%91%98%E7%94%A8%E6%88%B7%E7%99%BB%E5%BD%95%E6%96%B0%E7%94%A8%E6%88%B7">2.注销管理员用户，登录新用户</a></li>
+<li><a href="#3%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E4%B8%8B%E8%BD%BD%E5%88%86%E4%BA%AB">3.文件上传，下载，分享</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+</div>
+
+<script>
+
+  let lastTop = 0, lList = [], hList = [], postBody, lastIndex = -1;
+  let active = 'active-show', activeClass = 'active-current';
+  let tocWrapper = document.querySelector('#toc_wrapper');
+  let tocContent = tocWrapper.children[0];
+  let autoNumber = tocWrapper && tocWrapper.classList.contains('auto-number');
+
+  function addTocNumber(elem, deep) {
+    if (!elem) {
+      return;
+    }
+    let prop = elem.__proto__;
+
+    if (prop === HTMLUListElement.prototype) {
+      for (let i = 0; i < elem.children.length; i++) {
+        addTocNumber(elem.children[i], deep + (i + 1) + '.');
+      }
+    } else if (prop === HTMLLIElement.prototype) {
+      // 保存li元素
+      if (elem.children[0] && elem.children[0].__proto__ === HTMLAnchorElement.prototype) {
+        lList.push(elem);
+      }
+      for (let i = 0; i < elem.children.length; i++) {
+        let cur = elem.children[i];
+        if (cur.__proto__ === HTMLAnchorElement.prototype) {
+          if (autoNumber) {
+            cur.text = deep + ' ' + cur.text;
+          }
+        } else if (cur.__proto__ === HTMLUListElement.prototype) {
+          addTocNumber(cur, deep);
+        }
+      }
+    }
+  }
+
+  function removeParentActiveClass() {
+    let parents = tocContent.querySelectorAll('.' + active)
+    parents.forEach(function (elem) {
+      elem.classList.remove(active);
+    });
+  }
+
+  function addActiveClass(index) {
+    if (index >= 0 && index < hList.length) {
+      lList[index].classList.add(activeClass);
+    }
+  }
+
+  function removeActiveClass(index) {
+    if (index >= 0 && index < hList.length) {
+      lList[index].classList.remove(activeClass);
+    }
+  }
+
+  function addActiveLiElemment(elem, parent) {
+    if (!elem || elem === parent) {
+      return;
+    } else {
+      if (elem.__proto__ === HTMLLIElement.prototype) {
+        elem.classList.add(active);
+      }
+      addActiveLiElemment(elem.parentElement, parent);
+    }
+  }
+
+  function showToc() {
+    if (tocWrapper) {
+      postBody = document.querySelector('#post_body');
+      for (let i = 0; i < postBody.children.length; i++) {
+        if (postBody.children[i].__proto__ === HTMLHeadingElement.prototype) {
+          hList.push(postBody.children[i]);
+        }
+      }
+      if (tocWrapper.classList.contains('compress')) {
+        tocContent.classList.add('closed');
+      } else if (tocWrapper.classList.contains('no_compress')) {
+        tocContent.classList.add('expanded');
+      } else {
+        if (hList.length > 10) {
+          active = 'active-hidden'
+          tocContent.classList.add('closed');
+        } else {
+          tocContent.classList.add('expanded');
+        }
+      }
+    }
+  }
+
+  (function () {
+    // 处理不是从#一级标题开始目录
+    if (tocContent.children.length === 1 && tocContent.children[0].__proto__ === HTMLLIElement.prototype) {
+      let con = tocContent.children[0].children[0];
+      tocContent.innerHTML = con.innerHTML;
+    }
+    let markdownItTOC = document.querySelector('.markdownIt-TOC');
+    let innerHeight = window.innerHeight;
+    markdownItTOC.style = `max-height: ${innerHeight - 80 > 0 ? innerHeight - 80 : innerHeight}px`
+    addTocNumber(tocContent, '');
+  })();
+
+  document.addEventListener('scroll', function (e) {
+    if (lList.length <= 0) {
+      return;
+    }
+    let scrollTop = document.scrollingElement.scrollTop + 10;
+    let dir;
+
+    if (lastTop - scrollTop > 0) {
+      dir = 'up';
+    } else {
+      dir = 'down';
+    }
+
+    lastTop = scrollTop;
+    if (scrollTop <= 0) {
+      if (lastIndex >= 0 && lastIndex < hList.length) {
+        lList[lastIndex].classList.remove(activeClass);
+      }
+      return;
+    }
+
+    let current = 0, hasFind = false;
+    for (let i = 0; i < hList.length; i++) {
+      if (hList[i].offsetTop > scrollTop) {
+        current = i;
+        hasFind = true;
+        break;
+      }
+    }
+    if (!hasFind && scrollTop > lList[lList.length - 1].offsetTop) {
+      current = hList.length - 1;
+    } else {
+      current--;
+    }
+    if (dir === 'down') {
+      if (current > lastIndex) {
+        addActiveClass(current);
+        removeActiveClass(lastIndex)
+        lastIndex = current;
+        removeParentActiveClass();
+        lList[current] && addActiveLiElemment(lList[current].parentElement, tocContent);
+      }
+    } else {
+      if (current < lastIndex) {
+        addActiveClass(current);
+        removeActiveClass(lastIndex);
+        lastIndex = current;
+        removeParentActiveClass();
+        lList[current] && addActiveLiElemment(lList[current].parentElement, tocContent);
+      }
+    }
+  });
+
+
+  window.addEventListener('load', function () {
+    showToc();
+    document.querySelector('#sidebar').style = 'display: block;';
+    tocWrapper.classList.add('toc-active');
+    setTimeout(function () {
+      if ("createEvent" in document) {
+        let evt = document.createEvent("HTMLEvents");
+        evt.initEvent("scroll", false, true);
+        document.dispatchEvent(evt);
+      }
+      else {
+        document.fireEvent("scroll");
+      }
+    }, 500)
+  })
+
+</script>
+            </div>
+          
+        
+      </div>
+    </div>
+  
+</div>
+<script>
+  const SIDEBAR_TITLE_ACTIVE = 'sidebar-title-active';
+  const SIDEBAR_BODY_ACTIVE = 'sidebar-body-active';
+  const SLIDE_UP_IN = 'slide-up-in';
+
+  let sidebar = document.querySelector('#sidebar'),
+  tocSideBar = document.querySelector('#tocSideBar'),
+  metaSideBar = document.querySelector('#metaSideBar'),
+  postToc = document.querySelector('#post_toc'),
+  postSiteMeta = document.querySelector('#post_side_meta'),
+  sidebarTitle = document.querySelector('.sidebar-title'),
+  sidebarBody = document.querySelector('#sidebar_body');
+
+  tocSideBar && tocSideBar.addEventListener('click', (e) => {
+    toggleSidebar(e);
+  });
+
+  metaSideBar && metaSideBar.addEventListener('click', (e) => {
+    toggleSidebar(e);
+  });
+
+  function toggleSidebar(e) {
+    let currentTitle = document.querySelector("."+SIDEBAR_TITLE_ACTIVE);
+    if (currentTitle == e.srcElement) {
+      return ;
+    }
+    let current, showElement, hideElement;
+    if (e.srcElement == metaSideBar) {
+      showElement = postSiteMeta;
+      hideElement = postToc;
+    } else if (e.srcElement == tocSideBar){
+      showElement = postToc;
+      hideElement = postSiteMeta;
+    }
+    currentTitle.classList.remove(SIDEBAR_TITLE_ACTIVE);
+    e.srcElement.classList.add(SIDEBAR_TITLE_ACTIVE);
+
+    jQuery.Velocity(hideElement, 'stop');
+    jQuery.Velocity(hideElement, 'transition.slideUpOut', {
+      display: 'none',
+      duration: 200,
+      complete: function () {
+        jQuery.Velocity(showElement, 'transition.slideDownIn', {
+          duration: 200
+        });
+      }
+    })
+    hideElement.classList.remove(SIDEBAR_BODY_ACTIVE);
+    showElement.classList.add(SIDEBAR_BODY_ACTIVE);
+  }
+
+  postToc && postToc.addEventListener('transitionend', function() {
+    this.classList.remove(SLIDE_UP_IN);
+  });
+
+  if (sidebarBody) {
+    if (sidebarBody.classList.contains('pisces') || sidebarBody.classList.contains('gemini')) {
+      let hasFix = false;
+      let scrollEl = document.querySelector('.main-continer');
+      let limitTop = document.querySelector('#nav_ul').children.length * 42 + 162;
+      window.addEventListener('scroll', function(e) {
+        if (document.scrollingElement.scrollTop >= limitTop) {
+          if (!hasFix) {
+            sidebar.classList.add('sidebar-fixed');
+            hasFix = true;
+          }
+        } else {
+          if (hasFix) {
+            sidebar.classList.remove('sidebar-fixed');
+            hasFix = false;
+          }
+        }
+      });
+    }
+  }
+  
+</script>
+        <div class="section-box box-shadow-wrapper">
+          <div class="section bg-color post post-page">
+		  <div class="post-body">
+  
+  
+    <img src="https://blog-feng-tu-1305029367.cos.ap-guangzhou.myqcloud.com/Img/zpan.png" />
+  
+</div>
+
+            <section class="post-header">
+  <h1 class="post-title">
+    <a class="post-title-link" href="https://feng565.github.io/post/zpan/"> ZPan - 快速搭建私人的不限速网盘！基于腾讯云的免费简单开源多用户 Go 网盘程序 </a>
+  </h1>
+  <div class="post-meta">
+    
+    <span class="meta-item pc-show">
+      <i class="fa fa-calendar-o"></i>
+      <span class="language" data-lan="publish">发布于</span>
+      <span class="publish-time" data-t="2020-05-13 15:23:51">2020-05-13</span>
+      <span class="post-meta-divider pc-show">|</span>
+    </span>
+    
+    <span class="meta-item">
+      <i class="fa fa-folder-o"></i>
+      <span class="pc-show language" data-lan="category-in">标签:</span>
+       
+      <a href="https://feng565.github.io/tag/udQjirzBI/"> <span>教程分享</span> </a>、   
+      <a href="https://feng565.github.io/tag/RPhQ534D-/">
+        <span>软件分享</span>
+      </a>
+       
+    </span>
+    <span class="post-meta-divider">|</span>
+    
+    <span class="meta-item">
+      <i class="fa fa-clock-o"></i>
+      <span
+        >5<span class="language" data-lan="minute"
+          >分钟</span
+        ></span
+      >
+    </span>
+    <span class="meta-item">
+      <span class="post-meta-divider">|</span>
+      <i class="fa fa-file-word-o"></i>
+      <span
+        >1115<span class="pc-show language" data-lan="words"
+          >字数</span
+        ></span
+      >
+    </span>
+      
+    <span
+      id="/post/zpan/"
+      data-flag-title="ZPan - 快速搭建私人的不限速网盘！基于腾讯云的免费简单开源多用户 Go 网盘程序"
+      class="meta-item pc-show leancloud_visitors"
+    >
+      <span class="post-meta-divider">|</span>
+      <i class="fa fa-eye"></i>
+      <span
+        ><span class="language" data-lan="view">浏览量:</span>:<span
+          class="leancloud-visitors-count"
+        ></span
+      ></span>
+    </span>
+    
+  </div>
+</section>
+
+            <div class="post-body next-md-body" id="post_body">
+              <p>由于百度网盘的限速和众多网盘的不好用，很多喜欢动手的朋友都购买自己的服务器搭建私有网盘，腾讯云、阿里云、Vultr 等 VPS 都在疯狂打折！所以建议感兴趣的朋友趁机入手。有自己的服务器，你不仅可以架设专属的私有网盘用来存储备份/分享文件，还能用于搭建网站/博客、学习 Linux、搭建内网穿透、学习编程等等，即实用又能增长知识……</p>
+<p>​	今天介绍的「<strong>ZPan</strong>」则是又一款追求简约轻量的基于云存储的网盘程序，并且它致力于打造成“不限速的网盘系统”。</p>
+<!-- more -->
+<img src="https://blog-feng-tu-1305029367.cos.ap-guangzhou.myqcloud.com/Img/zpan_bsanner.jpg" alt="zpan_bsanner" style="zoom: 200%;" />
+<h2 id="一-zpan安装所需">一. ZPan安装所需</h2>
+<h4 id="1linux远程连接工具">1.Linux远程连接工具</h4>
+<p>​			XShell绿色版：<a href="https://shanbai.lanzoul.com/irtWPnjtfmd">分享跳转</a>     密码:h6f4</p>
+<p>​			SecureCRT绿色版：<a href="https://shanbai.lanzoul.com/iNdBdnjtlkh">分享跳转</a></p>
+<h4 id="2linux服务器">2.linux服务器</h4>
+<p>​			腾讯云（或阿里云）服务器</p>
+<p>​			腾讯云cos（或阿里云oss）</p>
+<h2 id="二zpan安装环境准备">二.ZPan安装环境准备</h2>
+<h4 id="1服务器准备以腾讯云为例">1.服务器准备(以腾讯云为例)</h4>
+<h6 id="1登录腾讯云按经济实力购买服务器">①登录<a href="https://cloud.tencent.com/">腾讯云</a>，按经济实力购买服务器。</h6>
+<h6 id="2配置安全组并关联实例">②配置安全组，并关联实例。</h6>
+<figure data-type="image" tabindex="1"><img src="https://blog-feng-tu-1305029367.cos.ap-guangzhou.myqcloud.com/Img/02.png" alt="02" loading="lazy"></figure>
+<figure data-type="image" tabindex="2"><img src="https://blog-feng-tu-1305029367.cos.ap-guangzhou.myqcloud.com/Img/03.png" alt="03" loading="lazy"></figure>
+<p>注：特别注意，一定放行<strong>TCP:8222</strong>端口</p>
+<figure data-type="image" tabindex="3"><img src="https://blog-feng-tu-1305029367.cos.ap-guangzhou.myqcloud.com/Img/04.png" alt="04" loading="lazy"></figure>
+<h4 id="2配置腾讯云cos">2.配置腾讯云COS</h4>
+<h6 id="1创建obs存储桶">①创建obs存储桶</h6>
+<p>在<strong>云产品</strong>中搜索<strong>对象存储</strong>，进入后同意协议。</p>
+<figure data-type="image" tabindex="4"><img src="https://blog-feng-tu-1305029367.cos.ap-guangzhou.myqcloud.com/Img/01.png" alt="01" loading="lazy"></figure>
+<p>点击<strong>创建存储桶</strong>。</p>
+<figure data-type="image" tabindex="5"><img src="https://blog-feng-tu-1305029367.cos.ap-guangzhou.myqcloud.com/Img/05.png" alt="05" loading="lazy"></figure>
+<figure data-type="image" tabindex="6"><img src="https://blog-feng-tu-1305029367.cos.ap-guangzhou.myqcloud.com/Img/06.png" alt="06" loading="lazy"></figure>
+<p>创建成功后，点击<strong>概览</strong>。</p>
+<figure data-type="image" tabindex="7"><img src="https://blog-feng-tu-1305029367.cos.ap-guangzhou.myqcloud.com/Img/09.png" alt="09" loading="lazy"></figure>
+<h6 id="2创建密钥">②创建密钥</h6>
+<p>点击<strong>密钥管理-云API密钥管理</strong></p>
+<figure data-type="image" tabindex="8"><img src="https://blog-feng-tu-1305029367.cos.ap-guangzhou.myqcloud.com/Img/07.png" alt="07" loading="lazy"></figure>
+<p>进入后点击<strong>新建密钥</strong></p>
+<figure data-type="image" tabindex="9"><img src="https://blog-feng-tu-1305029367.cos.ap-guangzhou.myqcloud.com/Img/08.png" alt="08" loading="lazy"></figure>
+<h6 id="3配置记录">③配置记录</h6>
+<pre><code class="language-shell">存储桶名称：
+访问域名：
+SecretId: 
+SecretKey:
+
+</code></pre>
+<h2 id="三安装zpan">三.安装ZPan</h2>
+<h4 id="1使用xshell连接服务器">1.使用XShell连接服务器。</h4>
+<h6 id="1使用xshell连接服务器-2">①使用XShell连接服务器</h6>
+<figure data-type="image" tabindex="10"><img src="https://blog-feng-tu-1305029367.cos.ap-guangzhou.myqcloud.com/Img/10.png" alt="10" loading="lazy"></figure>
+<h6 id="2接受密钥校验">②接受<strong>密钥校验</strong></h6>
+<figure data-type="image" tabindex="11"><img src="https://blog-feng-tu-1305029367.cos.ap-guangzhou.myqcloud.com/Img/11.png" alt="11" loading="lazy"></figure>
+<h6 id="3填写用户名">③填写用户名</h6>
+<figure data-type="image" tabindex="12"><img src="https://blog-feng-tu-1305029367.cos.ap-guangzhou.myqcloud.com/Img/12.png" alt="12" loading="lazy"></figure>
+<h6 id="4填写服务器密码">④填写服务器密码</h6>
+<figure data-type="image" tabindex="13"><img src="https://blog-feng-tu-1305029367.cos.ap-guangzhou.myqcloud.com/Img/13.png" alt="13" loading="lazy"></figure>
+<h4 id="2linux命令安装自动化脚本">2.Linux命令安装自动化脚本</h4>
+<h6 id="1修改etchosts文件在文件下添加下面内容">①修改/etc/hosts文件，在文件下添加下面内容；</h6>
+<pre><code class="language-shell">[root@VM-0-9-centos ~]# vim /etc/hosts
+...
+140.82.112.3    gitHub.com
+199.232.69.194  github.global.ssl.fastly.net
+185.199.108.153 assets-cdn.github.com
+185.199.109.153 assets-cdn.github.com
+185.199.110.153 assets-cdn.github.com
+185.199.111.153 assets-cdn.github.com
+
+</code></pre>
+<h6 id="2关闭防火墙">②关闭防火墙；</h6>
+<pre><code class="language-shell">#临时关闭防火墙
+[root@VM-0-9-centos ~]# systemctl  stop firewalld 
+#开机禁用防火墙
+[root@VM-0-9-centos ~]# systemctl  disable firewalld
+</code></pre>
+<h6 id="3安装zpan服务">③安装zpan服务；</h6>
+<pre><code class="language-shell">[root@VM-0-9-centos ~]# curl -sSf https://dl.saltbo.cn/install.sh | sh -s zpan
+</code></pre>
+<h6 id="4启动zpan服务查看服务状态">④启动zpan服务,查看服务状态；</h6>
+<pre><code class="language-shell">#启动zpan服务
+[root@VM-0-9-centos ~]# systemctl start zpan
+#查看服务状态
+[root@VM-0-9-centos ~]# systemctl status zpan
+● zpan.service - Zpan
+   Loaded: loaded (/etc/systemd/system/zpan.service; disabled; vendor preset: disabled)
+   Active: active (running) since Thu 2021-04-01 19:13:28 CST; 9s ago
+     Docs: https://github.com/saltbo/zpan
+ Main PID: 3721 (zpan)
+   CGroup: /system.slice/zpan.service
+           └─3721 /usr/local/bin/zpan server
+
+Apr 01 19:13:28 VM-0-9-centos systemd[1]: Started Zpan.
+Apr 01 19:13:28 VM-0-9-centos zpan[3721]: time=&quot;2021-04-01T19:13:28+08:00&quot; lev...0&quot;
+Apr 01 19:13:28 VM-0-9-centos zpan[3721]: 2021/04/01 19:13:28 [rest server lis...2]
+Hint: Some lines were ellipsized, use -l to show in full.
+#第三行出现“active (running)”就表示启动成功
+</code></pre>
+<h6 id="5设置zpan服务开机启动">⑤设置zpan服务开机启动;</h6>
+<pre><code class="language-shell">[root@VM-0-9-centos ~]# systemctl enable zpan
+Created symlink from /etc/systemd/system/multi-user.target.wants/zpan.service to /etc/systemd/system/zpan.service.
+</code></pre>
+<h6 id="6查看zpan工作端口">⑥查看zpan工作端口;</h6>
+<pre><code class="language-shell">[root@VM-0-9-centos ~]# ss -lntp |grep zpan
+LISTEN     0      128       [::]:8222                  [::]:*                   users:((&quot;zpan&quot;,pid=3721,fd=3))
+</code></pre>
+<h2 id="四配置zpan">四.配置ZPan</h2>
+<h4 id="1配置zpan">1.配置ZPan</h4>
+<h6 id="1浏览器登录">①浏览器登录</h6>
+<p>​	在浏览器地址栏中输入<a href="http://xn--IP-wz2cs9jou1bih4a:8222/">http://（主机公网IP）:8222/</a></p>
+<figure data-type="image" tabindex="14"><img src="https://blog-feng-tu-1305029367.cos.ap-guangzhou.myqcloud.com/Img/14.png" alt="14" loading="lazy"></figure>
+<h6 id="2配置数据库">②配置数据库</h6>
+<p>Zpan可配置4种数据库，这里选择“sqilte3”，数据库文件名称“zpan.db”保持默认不变</p>
+<figure data-type="image" tabindex="15"><img src="https://blog-feng-tu-1305029367.cos.ap-guangzhou.myqcloud.com/Img/15.png" alt="15" loading="lazy"></figure>
+<h6 id="3-配置管理员账号账号必须是邮箱账号">③ 配置管理员账号，账号必须是<strong>邮箱账号</strong></h6>
+<figure data-type="image" tabindex="16"><img src="https://blog-feng-tu-1305029367.cos.ap-guangzhou.myqcloud.com/Img/16.png" alt="16" loading="lazy"></figure>
+<h6 id="4安装成功">④安装成功</h6>
+<figure data-type="image" tabindex="17"><img src="https://blog-feng-tu-1305029367.cos.ap-guangzhou.myqcloud.com/Img/17.png" alt="17" loading="lazy"></figure>
+<h4 id="2登录zpan">2.登录Zpan</h4>
+<h6 id="1登录zpan">①登录Zpan</h6>
+<figure data-type="image" tabindex="18"><img src="https://blog-feng-tu-1305029367.cos.ap-guangzhou.myqcloud.com/Img/18.png" alt="18" loading="lazy"></figure>
+<h6 id="2创建存储">②创建存储</h6>
+<figure data-type="image" tabindex="19"><img src="https://blog-feng-tu-1305029367.cos.ap-guangzhou.myqcloud.com/Img/19.png" alt="19" loading="lazy"></figure>
+<h6 id="3配置存储">③配置存储</h6>
+<figure data-type="image" tabindex="20"><img src="https://blog-feng-tu-1305029367.cos.ap-guangzhou.myqcloud.com/Img/20.png" alt="20" loading="lazy"></figure>
+<h2 id="五使用zpan">五.使用ZPan</h2>
+<h4 id="1创建新用户">1.创建新用户</h4>
+<figure data-type="image" tabindex="21"><img src="https://blog-feng-tu-1305029367.cos.ap-guangzhou.myqcloud.com/Img/21.png" alt="21" loading="lazy"></figure>
+<figure data-type="image" tabindex="22"><img src="https://blog-feng-tu-1305029367.cos.ap-guangzhou.myqcloud.com/Img/22.png" alt="22" loading="lazy"></figure>
+<h4 id="2注销管理员用户登录新用户">2.注销管理员用户，登录新用户</h4>
+<figure data-type="image" tabindex="23"><img src="https://blog-feng-tu-1305029367.cos.ap-guangzhou.myqcloud.com/Img/23.png" alt="23" loading="lazy"></figure>
+<figure data-type="image" tabindex="24"><img src="https://blog-feng-tu-1305029367.cos.ap-guangzhou.myqcloud.com/Img/24.png" alt="24" loading="lazy"></figure>
+<h4 id="3文件上传下载分享">3.文件上传，下载，分享</h4>
+<p>上传</p>
+<figure data-type="image" tabindex="25"><img src="https://blog-feng-tu-1305029367.cos.ap-guangzhou.myqcloud.com/Img/25.png" alt="25" loading="lazy"></figure>
+<p>下载</p>
+<figure data-type="image" tabindex="26"><img src="https://blog-feng-tu-1305029367.cos.ap-guangzhou.myqcloud.com/Img/26.png" alt="26" loading="lazy"></figure>
+<p>分享</p>
+<figure data-type="image" tabindex="27"><img src="https://blog-feng-tu-1305029367.cos.ap-guangzhou.myqcloud.com/Img/27.png" alt="27" loading="lazy"></figure>
+<p>作为一款基于云存储的网盘程序，ZPan 非常适合服务器配置不高、空间/带宽不多的朋友使用。实际上，ZPan 更像是一个简单易用的云存储服务“在线文件管理器”。</p>
+<p>这样的好处显而易见，上传下载文件时能直连到云存储去，实现不限速不耗服务器流量，同时文件不占用服务器空间，且可靠性极高，不必担心丢失文件！所以如果你需要搭建属于自己的私有网盘，并且不介意将文件存到 OSS、COS 等云存储上去，同时还需要多用户支持的话，那么开源免费的 ZPan 值得你一试。</p>
+
+            </div>
+			<div>
+<br/> 
+  <div style="text-align:center;color: #999;font-size:14px;">---------- 本文到此结束 <i class="fa fa-paw"></i> 感谢您的阅读 ----------</div>
+<br/>
+</div>
+
+            
+              <div class="reward-btn">
+                <div class="reward-btn-text">赞赏</div>
+              </div>
+            
+            
+              <div class="post-footer">
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong class="language" data-lan="author">本文作者：</strong>
+      风五六
+    </li>
+    <li class="post-copyright-link">
+      <strong class="language" data-lan="link">本文链接：</strong>
+      <a href="https://feng565.github.io/post/zpan/" title="ZPan - 快速搭建私人的不限速网盘！基于腾讯云的免费简单开源多用户 Go 网盘程序">https://feng565.github.io/post/zpan/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong class="language" data-lan="copyright">版权声明： </strong>
+      本博客所有文章除特别声明外，均采用<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i> BY-NC-SA</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+  <div class="tags">
+    
+	<a href="https://feng565.github.io/tag/udQjirzBI/"><i class="fa fa-tag"></i> 教程分享</a>
+    
+	<a href="https://feng565.github.io/tag/RPhQ534D-/"><i class="fa fa-tag"></i> 软件分享</a>
+    
+  </div>
+  <br/><!-- 引入依赖 -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+<!-- 只要一个div的class是social-share即可，内容会自动初始化 -->
+<div class="social-share" style="text-align:center;font-size:14px;" data-sites="facebook,twitter,linkedin,google,wechat,qq,qzone,weibo">分享到：</div>
+
+  <div class="nav">
+    <div class="nav-prev">
+      
+    </div>
+    <div class="nav-next">
+      
+        <a class="nav-pc-next" title="关于" href="https://feng565.github.io/post/about/">关于</a>
+        <a class="nav-mobile-next" title="关于" href="https://feng565.github.io/post/about/">下一篇</a>
+        <i class="fa fa-chevron-right"></i>
+      
+    </div>
+  </div>
+</div>
+            
+            
+  <script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<div id="vcomments" style="padding: 10px 0px 0px 0px"></div>
+
+<style>
+  .v .veditor {
+    min-height: 10rem;
+    background-image: url('');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: right;
+    background-color: rgba(255, 255, 255, 0);
+    resize: none;
+  }
+
+  .v .vwrap {
+    border: 1px solid #000 !important;
+  }
+
+  .v .vbtn {
+    padding: .4rem 1.2rem !important;
+    border-color: #fff !important;
+    background-color: #49b1f5 !important;
+    color: #fff !important;
+    font-size: .7rem !important;
+  }
+
+  .v .vcards .vcard .vh .vmeta .vat {
+    padding: 0 .8rem !important;
+    border: 1px solid #00c4b6 !important;
+    border-radius: 5px !important;
+    color: #00c4b6 !important;
+  }
+</style>
+<script>
+  new Valine({
+    el: '#vcomments',
+    appId: 'p5DPrdJbaIDTuyXDvXyUVHaq-gzGzoHsz',
+    appKey: '7357Y6D8RgoOuJzxlWNQOFj0',
+    avatar: 'monsterid',
+    placeholder: '',
+    pageSize: '6',
+    lang: 'zh-cn',
+    enableQQ: 'true' === 'false',
+    visitor: 'true' === 'true',
+    highlight: 'true' === 'true',
+    avatarForce: 'true' === 'false',
+    serverURLs: '',
+		recordIP: 'true' === 'true',
+  });
+</script>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-box">
+  <footer class="footer">
+        <center id="runTimeBox">
+      网站已安全运行： <span id="run_time"></span>
+    </center>
+    <i class="fa fa-eye"></i><span id="busuanzi_container_site_pv">总访问量： <span id="busuanzi_value_site_pv"></span> 次</span>
+    <span class="post-meta-divider">|</span>
+    <i class="fa fa-users"></i><span id="busuanzi_container_site_uv">总访客数： <span id="busuanzi_value_site_uv"></span> 人</span>
+
+
+        <script>
+      BirthDay = new Date('2020/01/27');
+      if (BirthDay.getTime()) {
+        function runTime() {
+          str = "";
+          today = new Date();
+          timeold = today.getTime() - BirthDay.getTime();
+          sectimeold = timeold / 1000
+          secondsold = Math.floor(sectimeold);
+          msPerDay = 24 * 60 * 60 * 1000
+          msPerYear = 365 * 24 * 60 * 60 * 1000
+          e_daysold = timeold / msPerDay % 365
+          e_yearsold = timeold / msPerYear
+          daysold = Math.floor(e_daysold);
+          yearsold = Math.floor(e_yearsold);
+          str = yearsold + " 年 ";
+          str += daysold + " 天 ";
+          str += today.getHours() + " 时 ";
+          str += today.getMinutes() + " 分 ";
+          str += today.getSeconds() + " 秒";
+          return str;
+        }
+        setInterval(function () {
+          $("#run_time").html(runTime());
+        }, 1000);
+      } else {
+        document.querySelector('.footer').removeChild(document.querySelector('#runTimeBox'));
+      }
+    </script>
+
+    <div class="poweredby">
+      版权所有©2019-2022<a href="https://github.com/feng565" target="_blank">  风五六 
+ </a>   ， 保留一切权利。  | &nbsp; Theme By<a href="https://github.com/hsxyhao/gridea-theme-next" target="_blank">HsxyHao</a> </br>本博客所有文章除特别声明外，均采用 <a href="/go?url=https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i> BY-NC-SA </a> 许可协议。转载请注明出处！
+    </div>
+  </footer>
+  
+    
+        <div class="pisces back-to-top" id="back_to_top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span class="scrollpercent"> <span id="back_to_top_text">0</span>% </span>
+            
+        </div>
+        
+          
+            
+              <div class="bg-img">
+                <img src="https://blog-feng-tu-1305029367.cos.ap-guangzhou.myqcloud.com/Img/beijing.jpg" />
+              </div>
+              
+                
+                  
+                        
+</div>
+<script>
+  let sideBarOpen = "sidebar-open";
+  let body = document.body;
+  let back2Top = document.querySelector("#back_to_top"),
+    back2TopText = document.querySelector("#back_to_top_text"),
+    drawerBox = document.querySelector("#drawer_box"),
+    rightSideBar = document.querySelector(".sidebar"),
+    viewport = document.querySelector("body");
+
+  function scrollAnimation(currentY, targetY) {
+    let needScrollTop = targetY - currentY;
+    let _currentY = currentY;
+    setTimeout(() => {
+      const dist = Math.ceil(needScrollTop / 10);
+      _currentY += dist;
+      window.scrollTo(_currentY, currentY);
+      if (needScrollTop > 10 || needScrollTop < -10) {
+        scrollAnimation(_currentY, targetY);
+      } else {
+        window.scrollTo(_currentY, targetY);
+      }
+    }, 1);
+  }
+
+  back2Top.addEventListener("click", function (e) {
+    scrollAnimation(document.scrollingElement.scrollTop, 0);
+    e.stopPropagation();
+    return false;
+  });
+
+  window.addEventListener("scroll", function (e) {
+    let percent =
+      (document.scrollingElement.scrollTop /
+        (document.scrollingElement.scrollHeight -
+          document.scrollingElement.clientHeight)) *
+      100;
+    if (percent > 1 && !back2Top.classList.contains("back-top-active")) {
+      back2Top.classList.add("back-top-active");
+    }
+    if (percent == 0) {
+      back2Top.classList.remove("back-top-active");
+    }
+    if (back2TopText) {
+      back2TopText.textContent = Math.floor(percent);
+    }
+  });
+
+  let hasCacu = false;
+  window.addEventListener("resize", function (e) {
+    calcuHeight();
+  });
+
+  function calcuHeight() {
+    // 动态调整站点概览高度
+    if (
+      (!hasCacu && back2Top.classList.contains("pisces")) ||
+      back2Top.classList.contains("gemini")
+    ) {
+      let sideBar = document.querySelector(".sidebar");
+      let navUl = document.querySelector("#site_nav");
+      sideBar.style =
+        "margin-top:" + (navUl.offsetHeight + navUl.offsetTop + 15) + "px;";
+      hasCacu = true;
+    }
+  }
+  calcuHeight();
+
+  let open = false,
+    MOTION_TIME = 300,
+    RIGHT_MOVE_DIS = "320px";
+
+  if (drawerBox) {
+    let rightMotions = document.querySelectorAll(".right-motion");
+    let right = drawerBox.classList.contains("right");
+
+    let transitionDir = right
+      ? "transition.slideRightIn"
+      : "transition.slideLeftIn";
+
+    let openProp, closeProp;
+    if (right) {
+      openProp = {
+        paddingRight: RIGHT_MOVE_DIS,
+      };
+      closeProp = {
+        paddingRight: "0px",
+      };
+    } else {
+      openProp = {
+        paddingLeft: RIGHT_MOVE_DIS,
+      };
+      closeProp = {
+        paddingLeft: "0px",
+      };
+    }
+
+    drawerBox.onclick = function () {
+      open = !open;
+      jQuery.Velocity(rightSideBar, "stop");
+      jQuery.Velocity(viewport, "stop");
+      jQuery.Velocity(rightMotions, "stop");
+      if (open) {
+        jQuery.Velocity(
+          rightSideBar,
+          {
+            width: RIGHT_MOVE_DIS,
+          },
+          {
+            duration: MOTION_TIME,
+            begin: function () {
+              jQuery.Velocity(rightMotions, transitionDir, {});
+            },
+          }
+        );
+        jQuery.Velocity(viewport, openProp, {
+          duration: MOTION_TIME,
+        });
+      } else {
+        jQuery.Velocity(
+          rightSideBar,
+          {
+            width: "0px",
+          },
+          {
+            duration: MOTION_TIME,
+            begin: function () {
+              jQuery.Velocity(rightMotions, {
+                opacity: 0,
+              });
+            },
+          }
+        );
+        jQuery.Velocity(viewport, closeProp, {
+          duration: MOTION_TIME,
+        });
+      }
+      for (let i = 0; i < drawerBox.children.length; i++) {
+        drawerBox.children[i].classList.toggle("muse-line");
+      }
+      drawerBox.classList.toggle(sideBarOpen);
+    };
+  }
+
+  // 链接跳转
+  let newWindow = "false";
+  if (newWindow === "true") {
+    let links = document.querySelectorAll(".post-body a");
+    links.forEach((item) => {
+      if (!item.classList.contains("btn")) {
+        item.setAttribute("target", "_blank");
+      }
+    });
+  }
+
+  let faSearch = document.querySelector("#fa_search");
+  faSearch &&
+    faSearch.addEventListener("click", function () {
+      document.querySelector("#search_mask").style = "";
+    });
+
+  // 代码高亮
+  hljs.initHighlightingOnLoad();
+
+  // 离开当前页title变化
+  var leaveTitle = "你怎么走了༼ つ ◕_◕ ༽つ 快回来啊";
+  var normal_title = document.title;
+  if (leaveTitle) {
+    document.addEventListener("visibilitychange", function () {
+      if (document.visibilityState == "hidden") {
+        normal_title = document.title;
+        document.title = leaveTitle;
+      } else {
+        document.title = normal_title;
+      }
+    });
+  }
+</script>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/feng565/feng565.github.io@main/media/css/jquery.fancybox.css" />
+<script src="https://cdn.jsdelivr.net/gh/feng565/feng565.github.io@main/media/js/jquery.fancybox.js"></script>
+
+<script>
+  let images = document.querySelectorAll(".section img");
+  images.forEach((image) => {
+    var parent = image.parentElement;
+    var next = image.nextElementSibling;
+    parent.removeChild(image);
+    var aelem = document.createElement("a");
+    aelem.href = image.src;
+    aelem.dataset["fancybox"] = "images";
+    aelem.dataset["rel"] = "fancybox-button";
+    aelem.classList.add("fancybox");
+    aelem.appendChild(image);
+    parent.insertBefore(aelem, next);
+  });
+</script>
+    <div class="reward-mask" style="display: none;">
+  <div class="reward-relative">
+    <span class="close" aria-hidden="true">x</span>
+    <div class="reward-body">
+      <h2>感谢您的支持，我会继续努力的!</h2>
+      <div class="reward-img-box">
+        <div style="position: relative; width: 140px; height: 140px;">
+          
+          
+            <img id="zfb" class="reward-img" src="https://blog-feng-tu-1305029367.cos.ap-guangzhou.myqcloud.com/Img/202207191055879.jpg" alt="赞赏码">
+          
+          
+            <img id="wx" class="reward-img" src="https://blog-feng-tu-1305029367.cos.ap-guangzhou.myqcloud.com/Img/202207191055133.jpg" alt="赞赏码">
+          
+        </div>
+      </div>
+      <p class="reward-word">扫码打赏，你说多少就多少</p>
+      <p class="reward-tip"> </p>
+    </div>
+    <div class="bottom">
+      
+      <div id="zfbBtn" class="pay-text">
+        支付宝
+      </div>
+      
+      
+      <div id="wxBtn" class="pay-text">
+        微信支付
+      </div>
+      
+    </div>
+  </div>
+</div>
+<style>
+  .reward-mask {
+    position: fixed;
+    z-index: 99999;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #00000054;
+  }
+
+  .reward-relative {
+    position: relative;
+    width: 480px;
+    text-align: center;
+    margin: 0 auto;
+    border-radius: 5px;
+    background-color: #fff;
+    top: 50%;
+    margin-top: -205px;
+  }
+
+  .reward-relative .close {
+    position: absolute;
+    right: 10px;
+    font-weight: normal;
+    font-size: 16px;
+    color: #929292;
+  }
+
+  .reward-body {
+    padding: 40px 20px 20px;
+  }
+
+  .bottom {
+    display: flex;
+  }
+
+  .reward-btn {
+    text-align: center;
+  }
+
+  .reward-btn-text {
+    display: inline-block;
+    cursor: pointer;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    border-radius: 50%;
+    background-color: #ff9734;
+    color: #FFF;
+    margin-top: 20px;
+  }
+
+  .pay-text {
+    margin-top: 10px;
+    padding: 10px;
+    flex: 1;
+    transition: all .2s linear;
+  }
+
+  .pay-text:hover {
+    background-color: #a5a5a536;
+  }
+
+  .reward-body h2 {
+    padding-top: 10px;
+    text-align: center;
+    color: #a3a3a3;
+    font-size: 16px;
+    font-weight: normal;
+    margin: 0 0 20px;
+  }
+
+  .reward-body h2:after,
+  .reward-body h2:before {
+    font-family: Arial, Helvetica, sans-serif;
+    background: 0 0;
+    width: 0;
+    height: 0;
+    font-style: normal;
+    color: #eee;
+    font-size: 80px;
+    position: absolute;
+    top: 20px;
+  }
+
+  .reward-body h2:before {
+    content: '\201c';
+    left: 50px;
+  }
+
+  .reward-body h2:after {
+    content: '\201d';
+    right: 80px;
+  }
+
+  .reward-img-box {
+    display: inline-block;
+    padding: 10px;
+    border: 6px solid #ea5f00;
+    margin: 0 auto;
+    border-radius: 3px;
+    position: relative;
+  }
+
+  .reward-img {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+  }
+
+  @media (max-width: 767px) {
+    .reward-relative {
+      height: 100%;
+      top: 0px;
+      margin-top: 0;
+      width: auto;
+    }
+
+    .reward-relative .bottom {
+      flex-direction: column;
+    }
+
+    .reward-relative .pay-text {
+      width: 80%;
+      margin: 5px auto;
+      border: 1px solid silver;
+      padding: 6px;
+      border-radius: 4px;
+    }
+
+    .reward-body h2:after {
+      right: 40px;
+    }
+
+    .reward-body h2:after,
+    .reward-body h2:before {
+      font-size: 60px;
+    }
+
+    .reward-body h2:before {
+      left: 20px;
+    }
+  }
+</style>
+<script>
+  !function () {
+    var mask = document.querySelector('.reward-mask');
+    let close = document.querySelector('.reward-relative .close');
+    let rewardBtn = document.querySelector('.reward-btn');
+
+    let zfb = document.querySelector('#zfb'),
+      wx = document.querySelector('#wx'),
+      zfbBtn = document.querySelector('#zfbBtn'),
+      wxBtn = document.querySelector('#wxBtn');
+
+    if (zfbBtn && wxBtn) {
+      zfbBtn.addEventListener('click', () => {
+        jQuery.Velocity(zfb, 'transition.slideLeftIn', {
+          duration: 400
+        });
+        jQuery.Velocity(wx, 'transition.slideRightOut', {
+          display: 'none',
+          duration: 400
+        });
+      });
+
+      wxBtn.addEventListener('click', () => {
+        jQuery.Velocity(wx, 'transition.slideRightIn', {
+          duration: 400
+        });
+        jQuery.Velocity(zfb, 'transition.slideLeftOut', {
+          display: 'none',
+          duration: 400
+        });
+      });
+    }
+
+    rewardBtn.addEventListener('click', (e) => {
+      jQuery.Velocity(mask, 'transition.slideDownIn', {
+        duration: 400
+      })
+    });
+
+    close.addEventListener('click', (e) => {
+      e.preventDefault();
+      jQuery.Velocity(mask, 'transition.slideUpOut', {
+        duration: 400
+      })
+    })
+  }()
+</script>
+
+  </div>
+  <!--夜间模式开始-->
+
+<style>
+.set-view-mode { /*正常模式下按钮总体样式*/
+    position: fixed;
+    left: 20px;
+    top: 20px;
+    z-index: 300;
+    background: #000000;
+    width: 30px;
+    height: 30px;
+    border-radius: 30px;
+    -moz-border-radius: 10px;
+    color: #FFFFFF;
+    opacity: .8;
+    text-align: center;
+}
+.set-view-mode i { /*正常模式下按钮图标样式*/
+    width: 100%;
+    height: 100%;
+    display: block;
+    line-height: 30px;
+    font-size: 20px;
+    color: #FFFFFF;
+}
+.cover{ /*正常模式下遮罩样式（应设置为全透明）*/
+    position:fixed;
+    top: 0px;
+    left: 0px;
+    outline:5000px solid rgba(0, 0, 0, 0);
+    z-index: 99999;
+}
+.night-mode .set-view-mode { /*夜间模式下按钮总体样式*/
+    position: fixed;
+    left: 20px;
+    top: 20px;
+    z-index: 300;
+    background: #FFFFFF;
+    width: 30px;
+    height: 30px;
+    border-radius: 30px;
+    -moz-border-radius: 10px;
+    color: #000000;
+    opacity: .8;
+    text-align: center;
+}
+.night-mode .set-view-mode i { /*夜间模式下按钮图标样式*/
+    width: 100%;
+    height: 100%;
+    display: block;
+    line-height: 30px;
+    font-size: 20px;
+    color: #000000;
+}
+.night-mode .cover{ /*夜间模式下遮罩样式（应设置为黑色半透明）*/
+    position:fixed;
+    top: 0px;
+    left: 0px;
+    outline:5000px solid rgba(0, 0, 0, 0.3); 
+    z-index: 99999;
+}
+</style>
+
+<div class="cover"></div>
+<a class="set-view-mode" href="javascript:void(0)" title="夜间模式">
+    <i class="fa fa-moon-o"></i>
+</a>
+
+<script>
+$(function(){
+    btn = $('.set-view-mode');
+    if(sessionStorage.mode=="night"){
+        $('body').addClass('night-mode');
+        btn.find('i').attr('class','fa fa-sun-o');
+    }
+    $('.set-view-mode').click(function(){
+        var next_mode = $('body').hasClass('night-mode') ? 'day':'night';
+        if(next_mode!='day'){
+            $('body').addClass('night-mode');
+            btn.find('i').attr('class','fa fa-sun-o');
+            sessionStorage.mode="night";
+        }else{
+            $('body').removeClass('night-mode');
+            btn.find('i').attr('class','fa fa-moon-o');
+            sessionStorage.mode="day";
+        }
+    });
+});
+</script>
+
+<!--夜间模式结束-->
+
+<!-- 复制弹窗提示开始 -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+  window.onload = function(){
+    document.body.oncopy = function() {
+      swal({
+        title: "复制成功！",
+        text: "若要转载请务必保留原文链接并注明来源，谢谢合作！",
+        icon: "success",
+        buttons: false,
+        closeOnClickOutside: false,
+        timer: 1500,
+     });
+    };
+  }
+</script>
+<!-- 复制弹窗提示结束 -->
+
+<!--浏览进度条开始-->
+
+<style>
+    .read_progress {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        background-color: #eee;
+    }
+    .read_progress_inner {
+        content: '';
+        position: absolute;
+        left: 0;
+        height: 100%;
+        background-color: #00b2ff;
+    }
+</style>
+
+<div class="read_progress">
+    <div class="read_progress_inner" id="read_progress_inner"></div>
+</div>
+
+<script>
+document.addEventListener('scroll', function(e) {
+    var scrollTop = document.documentElement.scrollTop || document.body.scrollTop; // 已经读过被卷起来的文档部分
+    var scrollHeight = document.documentElement.scrollHeight // 文档总高度
+    var clientHeight = document.documentElement.clientHeight // 窗口可视高度
+    document.getElementById('read_progress_inner').style.width = +(scrollTop/(scrollHeight-clientHeight)).toFixed(2)*100 + '%'
+})
+</script>
+
+<!--浏览进度条结束-->
+
+
+</body>
+
+<input hidden id="copy" />
+<script>
+  !function () {
+    let times = document.querySelectorAll('.publish-time');
+    for (let i = 0; i < times.length; i++) {
+      let date = times[i].dataset.t;
+      let time = Math.floor((new Date().getTime() - new Date(date).getTime()) / 1000);
+      if (time < 60) {
+        str = time + '秒之前';
+      } else if (time < 3600) {
+        str = Math.floor(time / 60) + '分钟之前';
+      } else if (time >= 3600 && time < 86400) {
+        str = Math.floor(time / 3600) + '小时之前';
+      } else if (time >= 86400 && time < 259200) {
+        str = Math.floor(time / 86400) + '天之前';
+      } else {
+        str = times[i].textContent;
+      }
+      times[i].textContent = str;
+    }
+  }();
+</script>
+
+<script>
+  let language = '';
+  if (language !== '') {
+    let map = new Map();
+    if (language === 'en') {
+      map.set('search', 'Search');
+      map.set('category', 'Categories');
+      map.set('article', 'Articles');
+      map.set('tag', 'Tags');
+      map.set('top', 'Top');
+      map.set('publish', 'published');
+      map.set('minute', ' minutes');
+      map.set('read-more', 'Read More');
+      map.set('view', 'View');
+      map.set('words', ' words');
+      map.set('category-in', 'category in');
+      map.set('preview', 'Meta');
+      map.set('index', 'Toc');
+      map.set('no-archives', "You haven't created yet");
+      map.set('archives', " articles in total");
+      map.set('cloud-tags', " tags in total");
+      map.set('copyright', "Copyright: ");
+      map.set('author', "Author: ");
+      map.set('link', "Link: ");
+      map.set('leave-message', "Leave a message");
+      map.set('format', "Links Format");
+      map.set('site-name', "Name: ");
+      map.set('site-link', "Link: ");
+      map.set('site-desc', "Desc: ");
+      map.set('stat', " related results, taking ");
+      map.set('stat-time', " ms");
+      map.set('site-img', "Image: ");
+    }
+
+    if (map.size > 0) {
+      let lanElems = document.querySelectorAll('.language');
+      lanElems.forEach(elem => {
+        let lan = elem.dataset.lan, text = map.get(lan);
+        if (elem.__proto__ === HTMLInputElement.prototype) {
+          elem.placeholder = text
+        } else {
+          if (elem.dataset.count) {
+            text = elem.dataset.count + text;
+          }
+          elem.textContent = text;
+        }
+      })
+    }
+  }
+
+  window.Clipboard = (function (window, document, navigator) {
+    var textArea,
+      copy;
+
+    // 判断是不是ios端
+    function isOS() {
+      return navigator.userAgent.match(/ipad|iphone/i);
+    }
+    //创建文本元素
+    function createTextArea(text) {
+      textArea = document.createElement('textArea');
+      textArea.value = text;
+      textArea.style.width = 0;
+      textArea.style.height = 0;
+      textArea.clientHeight = 0;
+      textArea.clientWidth = 0;
+      document.body.appendChild(textArea);
+    }
+    //选择内容
+    function selectText() {
+      var range,
+        selection;
+
+      if (isOS()) {
+        range = document.createRange();
+        range.selectNodeContents(textArea);
+        selection = window.getSelection();
+        selection.removeAllRanges();
+        selection.addRange(range);
+        textArea.setSelectionRange(0, 999999);
+      } else {
+        textArea.select();
+      }
+    }
+
+    //复制到剪贴板
+    function copyToClipboard() {
+      try {
+        document.execCommand("Copy")
+      } catch (err) {
+        alert("复制错误！请手动复制！")
+      }
+      document.body.removeChild(textArea);
+    }
+
+    copy = function (text) {
+      createTextArea(text);
+      selectText();
+      copyToClipboard();
+    };
+
+    return {
+      copy: copy
+    };
+  })(window, document, navigator);
+
+  function copyCode(e) {
+    if (e.srcElement.tagName === 'SPAN' && e.srcElement.classList.contains('copy-code')) {
+      let code = e.currentTarget.querySelector('code');
+      var text = code.innerText;
+      if (e.srcElement.textContent === '复制成功') {
+        return;
+      }
+      e.srcElement.textContent = '复制成功';
+      (function (elem) {
+        setTimeout(() => {
+          if (elem.textContent === '复制成功') {
+            elem.textContent = '复制代码'
+          }
+        }, 1000);
+      })(e.srcElement)
+      Clipboard.copy(text);
+    }
+  }
+
+  let pres = document.querySelectorAll('pre');
+  pres.forEach(pre => {
+    let code = pre.querySelector('code');
+    let copyElem = document.createElement('span');
+    copyElem.classList.add('copy-code');
+    copyElem.textContent = '复制代码';
+    pre.appendChild(copyElem);
+    pre.onclick = copyCode
+  })
+
+</script>
+<script src="https://cdn.jsdelivr.net/gh/feng565/feng565.github.io@main/media/js/motion.js"></script>
+
+
+  <script
+    src="https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
+  <script>
+    var scroll = new SmoothScroll('a[href*="#"]', {
+      speed: 200
+    });
+  </script>
+
+
+
+<script src="/media/js/mouse/love.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/gh/feng565/feng565.github.io@main/media/js/cool.js"></script>
+
+
+
+</html>
